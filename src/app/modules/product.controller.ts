@@ -7,8 +7,8 @@ const createProduct = async (req: Request, res: Response) => {
   try {
     const productData = req.body;
     // validate through zod
-    const zodParsedData = productZodSchema.parse(productData)
-    
+    const zodParsedData = productZodSchema.parse(productData);
+
     // send the data into product service
     const result = await ProductServices.createProductIntoDb(zodParsedData);
 
@@ -26,7 +26,55 @@ const createProduct = async (req: Request, res: Response) => {
   }
 };
 
+// controller for get all prod
+const getAllProducts = async (req: Request, res: Response) => {
+  try {
+    const result = await ProductServices.getAllProductsFromDB();
+    // console.log(result, 'res');
+    res.status(200).json({
+      success: true,
+      message: 'Products fetched successfully!',
+      data: result,
+    });
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      message: 'Something went wrong',
+      // error: err,
+    });
+  }
+};
+
+// controller for get a single std
+const getSingleProduct = async (req: Request, res: Response) => {
+  try {
+    const { productId } = req.params; // destruct id from params
+    const result = await ProductServices.getSingleProductFromDB(productId);
+    // response send id success
+    if (result) {
+      res.status(200).json({
+        success: true,
+        message: 'Product fetched successfully!!',
+        data: result,
+      });
+    } else {
+      res.status(500).json({
+        success: false,
+        message: 'Product not Found',
+      });
+    }
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      message: 'Something went wrong',
+      error: err,
+    });
+  }
+};
+
 // export
 export const ProductControllers = {
   createProduct,
+  getAllProducts,
+  getSingleProduct,
 };
