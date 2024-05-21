@@ -37,32 +37,31 @@ const deleteProductFromDb = async (id: string) => {
 // Search a product
 const searchProductIntoDb = async (queryText?: string) => {
   let result;
-  if (queryText){
+  if (queryText) {
     const query = queryText
-    ? {
-        $or: [
-          { name: { $regex: queryText, $options: 'i' } },
-          { category: { $regex: queryText, $options: 'i' } },
-          { description: { $regex: queryText, $options: 'i' } },
-          { tags: { $regex: queryText, $options: 'i' } },
-        ],
-      }
-    : {};
+      ? {
+          $or: [
+            { name: { $regex: queryText, $options: 'i' } },
+            { category: { $regex: queryText, $options: 'i' } },
+            { description: { $regex: queryText, $options: 'i' } },
+            { tags: { $regex: queryText, $options: 'i' } },
+          ],
+        }
+      : {};
 
-  result = await Product.find(query);
-  
+    result = await Product.find(query);
+  } else {
+    result = await Product.find();
+    //console.log(result)
   }
-  else{
-  result = await Product.find();
-  //console.log(result)
-  }
-  return result
+  return result;
 };
 
 // export
 export const ProductServices = {
   createProductIntoDb,
   getSingleProductFromDB,
-  updateProduct, deleteProductFromDb,
-  searchProductIntoDb
+  updateProduct,
+  deleteProductFromDb,
+  searchProductIntoDb,
 };
