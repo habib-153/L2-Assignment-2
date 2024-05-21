@@ -45,7 +45,7 @@ const getAllProducts = async (req: Request, res: Response) => {
   }
 };
 
-// controller for get a single std
+// controller for get a single prod
 const getSingleProduct = async (req: Request, res: Response) => {
   try {
     const { productId } = req.params; // destruct id from params
