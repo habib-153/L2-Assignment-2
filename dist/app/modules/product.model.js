@@ -5,11 +5,11 @@ const mongoose_1 = require("mongoose");
 const productVariantSchema = new mongoose_1.Schema({
     type: { type: String, required: true },
     value: { type: String, required: true }
-});
+}, { _id: false });
 const productInventorySchema = new mongoose_1.Schema({
     quantity: { type: Number, required: true },
     inStock: { type: Boolean, required: true }
-});
+}, { _id: false });
 const productSchema = new mongoose_1.Schema({
     name: { type: String, required: true },
     description: { type: String, required: true },
