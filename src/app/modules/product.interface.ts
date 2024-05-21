@@ -11,9 +11,9 @@ export type TInventory ={
 export type TProduct ={
     name: string;
     description: string;
-    price: string;
+    price: number;
     category: string;
     tags: string[];
-    variants: [TVariant];
+    variants: [TVariant]; // array of TVariant object
     inventory: TInventory
 }
