@@ -110,7 +110,7 @@ const updateProduct = async (req: Request, res: Response) => {
 // delete
 const deletedProduct = async (req: Request, res: Response) => {
   try {
-    const result = await ProductServices.deleteProductFromDb(
+    await ProductServices.deleteProductFromDb(
       req.params.productId,
     );
 
@@ -127,7 +127,7 @@ const deletedProduct = async (req: Request, res: Response) => {
   }
 };
 
-// search
+// search and get
 const getProducts = async (req: Request, res: Response) => {
   try {
     const { searchTerm } = req.query;
@@ -152,11 +152,10 @@ const getProducts = async (req: Request, res: Response) => {
         : 'Products fetched successfully!',
       data: result,
     });
-  } catch (err: any) {
+  } catch (err) {
     res.status(500).json({
       success: false,
-      message: 'Something went wrong',
-      error: err,
+      message: 'Products Not Found',
     });
   }
 };
